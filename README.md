@@ -36,7 +36,7 @@ The purpose of this project is to learn how to use Vue and Vuetify by creating a
 1. Clone the repository:
 
 ```
-git clone 
+git clone https://github.com/LetsCodeManh/vue-table.git
 ```
 
 2. Install the dependencies:
