@@ -9,9 +9,14 @@ type Brewery = {
 export default {
   data() {
     return {
+      // Task get the Data from the API
       listItem: [] as Brewery[],
+
+      // Task sort by name
       sortField: "name",
       sortDirection: "asc",
+
+      // Task filter the table by the types
       selectedBreweryType: "all",
       breweryTypes: [
         "micro",
@@ -25,11 +30,14 @@ export default {
         "proprietor",
         "closed",
       ],
+
+      // Task showing only 5 Results
       perPage: 5,
       currentPage: 1,
     };
   },
   methods: {
+    // Get the Data from the API
     async getBreweries() {
       let url: string = "https://api.openbrewerydb.org/breweries";
       if (this.selectedBreweryType !== "all") {
@@ -42,6 +50,8 @@ export default {
       const finalRes = await response.json();
       this.listItem = finalRes;
     },
+
+    // Function for sorting
     sortList(field: string) {
       if (field === this.sortField) {
         this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
@@ -58,6 +68,8 @@ export default {
         }
       });
     },
+
+    // For Pagination
     nextPage() {
       this.currentPage++;
       this.getBreweries();
@@ -71,6 +83,7 @@ export default {
   async mounted() {
     await this.getBreweries();
   },
+
   watch: {
     selectedBreweryType: async function () {
       await this.getBreweries();
@@ -124,6 +137,7 @@ export default {
       </tr>
     </tbody>
   </VTable>
+
   <div class="d-flex justify-space-between align-center pt-10">
     <div class="d-flex justify-center" style="gap: 1rem">
       <div @click="prevPage" v-if="currentPage > 1">&#8592;</div>
@@ -144,16 +158,3 @@ export default {
     </div>
   </div>
 </template>
-
-<!-- 
-  Tasks
-    1.  Table by using Vuetify - check
-    2.  Get Data from this API: https://api.openbrewerydb.org/breweries
-    3.  Show some of the Data in the Table - Important show the website_url as a link with the target of _blank - check
-    4.  Only show 5 results per page - check
-    5.  Getting more result by scrolling through Pagination - check
-    6.  Will be sorted by "by_dist" - check
-    7.  Get a list of by_type to choose from and display the data - check
-    8.  Filter with phone
-    9.  the date should be in this format dd.mm.YYYY - cant do because no date exits
--->
